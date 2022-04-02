@@ -12,20 +12,20 @@
 <body>
 <header>
     <nav class="navbar navbar-light bg-light">
-        <h1> Миссия Колонизация Марса </h1>
-        <h3>Mars One</h3>
+        <h1> Online Shop </h1>
+        <h3> Yandex Shop </h3>
         {% if current_user.is_authenticated %}
             <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
         {% else %}
             <p>
-                <a class="btn btn-primary " href="/register">Зарегистрироваться</a>
-                <a class="btn btn-success" href="/login">Войти</a>
+                <a class="btn btn-primary " href="/register">Sigh Up</a>
+                <a class="btn btn-success" href="/login">Login</a>
             </p>
         {% endif %}
     </nav>
-    <h2>И на Марсе будут яблони цвести</h2>
+    <h2> Happy shopping! </h2>
     {% if current_user.is_authenticated %}
-        <a href="job" class="btn btn-secondary">Adding a Job</a>
+        <a href="job" class="btn btn-secondary">Adding a Product</a>
     {% endif %}
 </header>
 <!-- Begin page content -->
