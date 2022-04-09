@@ -14,10 +14,10 @@ class Jobs(SqlAlchemyBase, UserMixin):
     product = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     price = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    # start_date = sqlalchemy.Column(sqlalchemy.DateTime,
-    #                                default=datetime.datetime.now)
-    # end_date = sqlalchemy.Column(sqlalchemy.DateTime,
-    #                              default=datetime.datetime.now)
+    start_date = sqlalchemy.Column(sqlalchemy.DateTime,
+                                   default=datetime.datetime.now)
+    end_date = sqlalchemy.Column(sqlalchemy.DateTime,
+                                 default=datetime.datetime.now)
     bargaining = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
 
     team_leader_user = orm.relation('User')
