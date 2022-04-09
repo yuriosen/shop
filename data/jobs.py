@@ -10,7 +10,7 @@ class Jobs(SqlAlchemyBase, UserMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    # team_leader = sqlalchemy.Column(sqlalchemy.Integer, ForeignKey('users.id'))
+    team_leader = sqlalchemy.Column(sqlalchemy.Integer, ForeignKey('users.id'))
     product = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     price = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     description = sqlalchemy.Column(sqlalchemy.String, nullable=True)
