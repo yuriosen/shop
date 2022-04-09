@@ -27,6 +27,7 @@ def add_job():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         job = Jobs()
+        job.team_leader = form.team_leader.data
         job.product = form.product.data
         job.price = form.price.data
         job.description = form.description.data

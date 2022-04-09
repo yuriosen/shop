@@ -13,16 +13,16 @@
             </p>
         {% endfor %}
     </p>
-<!--    <p>-->
-<!--        {{ form.team_leader.label }}<br>-->
-<!--        {{ form.team_leader(class="form-control") }}<br>-->
-<!--        {% for error in form.team_leader.errors %}-->
-<!--            <p content="alert alert-danger" role="alert">-->
-<!--                {{ error }}-->
-<!--            </p>-->
-<!--        {% endfor %}-->
-<!--    </p>-->
-<!--    <p>-->
+    <p>
+        {{ form.team_leader.label }}<br>
+        {{ form.team_leader(class="form-control") }}<br>
+        {% for error in form.team_leader.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
         {{ form.price.label }}<br>
         {{ form.price(class="form-control") }}<br>
         {% for error in form.price.errors %}

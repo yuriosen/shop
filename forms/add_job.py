@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 class AddJobForm(FlaskForm):
     product = StringField('Product Title', validators=[DataRequired()])
     price = IntegerField("Price")
-    # phone_number = IntegerField("Work Size")
+    team_leader = IntegerField("Team Leader id")
     description = StringField("Description")
     bargaining = BooleanField("Bargaining possible?")
     submit = SubmitField('Submit')
