@@ -27,11 +27,10 @@ def add_job():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         job = Jobs()
-        job.team_leader = form.team_leader.data
-        job.job = form.job.data
-        job.work_size = form.work_size.data
-        job.collaborators = form.collaborators.data
-        job.is_finished = form.is_finished.data
+        job.product = form.product.data
+        job.price = form.price.data
+        job.description = form.description.data
+        job.bargaining = form.bargaining.data
         db_sess.add(job)
         db_sess.commit()
         return redirect('/')
@@ -57,8 +56,7 @@ def reqister():
             surname=form.surname.data,
             name=form.name.data,
             age=form.age.data,
-            position=form.position.data,
-            speciality=form.speciality.data,
+            phone_number=form.phone_number.data,
             address=form.address.data
         )
         user.set_password(form.password.data)
@@ -162,10 +160,10 @@ def main():
     # add_job()
     global_init(input())
     db_sess = create_session()
-    for user in db_sess.query(User).filter(User.address == 'module_1',
-                                           User.speciality.notilike("%engineer%"),
-                                           User.position.notilike("%engineer%")):
-        print(user.id)
+    # for user in db_sess.query(User).filter(User.address == 'module_1',
+    #                                        User.speciality.notilike("%engineer%"),
+    #                                        User.position.notilike("%engineer%")):
+    #     print(user.id)
 
     app.run()
 
