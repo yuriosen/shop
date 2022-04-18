@@ -5,19 +5,19 @@
 <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
-        {{ form.product.label }}<br>
-        {{ form.product(class="form-control") }}<br>
-        {% for error in form.product.errors %}
+        {{ form.name.label }}<br>
+        {{ form.name(class="form-control") }}<br>
+        {% for error in form.name.errors %}
             <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
         {% endfor %}
     </p>
     <p>
-        {{ form.team_leader.label }}<br>
-        {{ form.team_leader(class="form-control") }}<br>
-        {% for error in form.team_leader.errors %}
-            <p content="alert alert-danger" role="alert">
+        {{ form.product.label }}<br>
+        {{ form.product(class="form-control") }}<br>
+        {% for error in form.product.errors %}
+            <p class="alert alert-danger" role="alert">
                 {{ error }}
             </p>
         {% endfor %}

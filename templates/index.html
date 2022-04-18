@@ -13,15 +13,18 @@
             <td class="title" width="100px" bgcolor="#bebebe">Bargaining possible?</td>
         </tr>
         <tr class="my_row">
-            <td class="ordinary" bgcolor="#bbbbff">{{ item.product }}</td>
-            <td class="ordinary" bgcolor="#bbbbff">{{ item.team_leader_user.surname }} {{ item.team_leader_user.name }}</td>
-            <td class="ordinary" align="center" bgcolor="#bbbbff">{{ item.price }} $</td>
-            <td class="ordinary" align="center" bgcolor="#bbbbff">{{ item.description }}</td>
+            <td class="ordinary" bgcolor="#f2e8c9">{{ item.product }}</td>
+            <td class="ordinary" bgcolor="#f2e8c9">{{ item.team_leader_user.surname }} {{ item.team_leader_user.name }}</td>
+            <td class="ordinary" align="center" bgcolor="#f2e8c9">{{ item.price }} $</td>
+            <td class="ordinary" align="center" bgcolor="#f2e8c9">{{ item.description }}</td>
             {% if item.bargaining%}
-                <td class="ordinary" align="center" bgcolor="#bbffff">Bargaining possible</td>
+                <td class="ordinary" align="center" bgcolor="#34c924">Bargaining possible</td>
             {% else %}
-                <td class="ordinary" align="center" bgcolor="#ffbbbb">Bargaining impossible</td>
+                <td class="ordinary" align="center" bgcolor="#ff7f49">Bargaining impossible</td>
             {% endif %}
+        </tr>
+        <tr>
+            <td class="ordinary" bgcolor="#ffffff">|</td>
         </tr>
     </table>
 </div>
