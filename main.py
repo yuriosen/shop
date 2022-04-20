@@ -26,7 +26,7 @@ def add_job():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         job = Jobs()
-        job.team_leader = form.team_leader.data
+        job.team_leader = form.name.data
         job.product = form.product.data
         job.price = form.price.data
         job.description = form.description.data
@@ -74,7 +74,7 @@ def index():
     return render_template('index.html', jobs=jobs)
 
 
-def create_users():
+def create_products():
     db_sess = db_session.create_session()
     capitane = User()
     capitane.surname = 'Scott'
@@ -120,19 +120,6 @@ def create_users():
     db_sess.commit()
 
 
-def add_job():
-    job = Jobs()
-    job.team_leader = 1
-    job.job = 'job deployment of residential modules 1 and 2'
-    job.work_size = 15
-    job.collaborators = '2, 3'
-    job.start_date = datetime.now()
-    job.is_finished = False
-    db_sess = db_session.create_session()
-    db_sess.add(job)
-    db_sess.commit()
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -156,14 +143,9 @@ def logout():
 
 
 def main():
-    # db_session.global_init("db/mars_explorer.db")
-    # add_job()
-    global_init(input())
+    name = 'base'
+    global_init(name)
     db_sess = create_session()
-    # for user in db_sess.query(User).filter(User.address == 'module_1',
-    #                                        User.speciality.notilike("%engineer%"),
-    #                                        User.position.notilike("%engineer%")):
-    #     print(user.id)
 
     app.run()
 

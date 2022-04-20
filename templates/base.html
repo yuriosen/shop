@@ -15,7 +15,8 @@
         <h1> Online Shop </h1>
         <h3> Yandex Shop </h3>
         {% if current_user.is_authenticated %}
-            <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+        <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
+        <a class="navbar-brand" href="/logout">{{ current_user.phone_number }}</a>
         {% else %}
             <p>
                 <a class="btn btn-primary " href="/register">Sigh Up</a>
