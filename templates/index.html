@@ -2,31 +2,32 @@
 
 {% block content %}
 <h2 align="center">Products</h2>
-{% for item in jobs %}
-<div class="table_container">
-    <table class="my_table">
-        <tr class="my_row">
-            <td class="title" width="420px" bgcolor="#bebebe">Product</td>
-            <td class="title" width="140px" bgcolor="#bebebe">Team leader</td>
-            <td class="title" width="100px" bgcolor="#bebebe">Price</td>
-            <td class="title" width="200px" bgcolor="#bebebe">Description</td>
-            <td class="title" width="100px" bgcolor="#bebebe">Bargaining possible?</td>
-        </tr>
-        <tr class="my_row">
-            <td class="ordinary" bgcolor="#f2e8c9">{{ item.product }}</td>
-            <td class="ordinary" bgcolor="#f2e8c9">{{ item.team_leader_user.surname }} {{ item.team_leader_user.name }}</td>
-            <td class="ordinary" align="center" bgcolor="#f2e8c9">{{ item.price }} $</td>
-            <td class="ordinary" align="center" bgcolor="#f2e8c9">{{ item.description }}</td>
-            {% if item.bargaining%}
-                <td class="ordinary" align="center" bgcolor="#34c924">Bargaining possible</td>
-            {% else %}
-                <td class="ordinary" align="center" bgcolor="#ff7f49">Bargaining impossible</td>
-            {% endif %}
-        </tr>
-        <tr>
-            <td class="ordinary" bgcolor="#ffffff">|</td>
-        </tr>
-    </table>
+{% if current_user.is_authenticated %}
+    <a href="news" class="btn btn-secondary">Добавить товар</a>
+{% endif %}
+{% for item in news%}
+<div class="col-md6 border rounded">
+    <h2>{{item.title}}</h2>
+    <div>
+        {{item.content}}
+    </div>
+    <div>
+        Цена - {{item.price}} $
+    </div>
+    <div>
+        Продавец - {{item.user.name}}, Номер телефона - {{item.user.number}}
+    </div>
+    {% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        <a href="/news/{{ item.id }}" class="btn btn-warning">
+            Изменить
+        </a>
+        <a href="/news_delete/{{ item.id }}" class="btn btn-danger">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+
 </div>
 {% endfor %}
 {% endblock %}
