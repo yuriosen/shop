@@ -8,5 +8,5 @@ class NewsForm(FlaskForm):
     title = StringField('Наименование товара', validators=[DataRequired()])
     content = TextAreaField("Описание")
     price = IntegerField("Цена товара (в долларах)")
-    is_private = BooleanField("Торг возможен?")
+    bargaining = BooleanField("Торг возможен?")
     submit = SubmitField('Опубликовать')

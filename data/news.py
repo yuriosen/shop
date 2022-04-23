@@ -11,11 +11,12 @@ class News(SqlAlchemyBase, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    title = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    price = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    price = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
-    bargaining = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
+    bargaining = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
+    photo = sqlalchemy.Column(sqlalchemy.BLOB, nullable=True)
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')

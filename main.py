@@ -7,6 +7,13 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from forms.news import NewsForm
 from data import news_api
 
+
+def convert_to_binery_data(filename):
+    with open(filename, 'rb') as file:
+        blob_data = file.read()
+    return blob_data
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
@@ -46,7 +53,8 @@ def edit_news(id):
             form.title.data = news.title
             form.content.data = news.content
             form.price.data = news.price
-            form.is_private.data = news.is_private
+            form.bargaining.data = news.bargaining
+            # form.photo.data = news.photo
         else:
             abort(404)
     if form.validate_on_submit():
@@ -58,7 +66,8 @@ def edit_news(id):
             news.title = form.title.data
             news.content = form.content.data
             news.price = form.price.data
-            news.is_private = form.is_private.data
+            news.bargaining = form.bargaining.data
+            # news.photo = form.photo.data
             db_sess.commit()
             return redirect('/')
         else:
@@ -107,7 +116,8 @@ def add_news():
         news.title = form.title.data
         news.content = form.content.data
         news.price = form.price.data
-        news.is_private = form.is_private.data
+        news.bargaining = form.bargaining.data
+        # news.photo = form.photo.data
         current_user.news.append(news)
         db_sess.merge(current_user)
         db_sess.commit()
@@ -175,12 +185,12 @@ def create_users():
 def create_news_():
     db_sess = db_session.create_session()
     news = News(title="Сумка", content="Красивая красная сумка", price="16",
-                user_id=1, is_private=False, bargaining=False)
+                user_id=1, is_private=False, bargaining=False, photo=convert_to_binery_data('img/q.png'))
     db_sess.add(news)
 
     user = db_sess.query(User).filter(User.id == 1).first()
     news = News(title="Стол", content="деревянный, большой", price="100",
-                user=user, is_private=False, bargaining=True)
+                user=user, is_private=False, bargaining=True, photo=convert_to_binery_data('img/q.png'))
     db_sess.add(news)
 
     user.news.append(news)
