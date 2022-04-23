@@ -17,6 +17,11 @@
     <div>
         Продавец - {{item.user.name}}, Номер телефона - {{item.user.number}}
     </div>
+    {% if item.bargaining != 0 %}
+    <div>
+        Торг возможен
+    </div>
+{% endif %}
     {% if current_user.is_authenticated and current_user == item.user %}
     <div>
         <a href="/news/{{ item.id }}" class="btn btn-warning">

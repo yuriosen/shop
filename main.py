@@ -175,12 +175,12 @@ def create_users():
 def create_news_():
     db_sess = db_session.create_session()
     news = News(title="Сумка", content="Красивая красная сумка", price="16",
-                user_id=1, is_private=False)
+                user_id=1, is_private=False, bargaining=False)
     db_sess.add(news)
 
     user = db_sess.query(User).filter(User.id == 1).first()
     news = News(title="Стол", content="деревянный, большой", price="100",
-                user=user, is_private=False)
+                user=user, is_private=False, bargaining=True)
     db_sess.add(news)
 
     user.news.append(news)
@@ -188,7 +188,7 @@ def create_news_():
 
 
 def main():
-    db_session.global_init('db/blogs.db')
+    db_session.global_init('data/shop.db')
     create_users()
     create_news_()
     app.register_blueprint(news_api.blueprint)
