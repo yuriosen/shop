@@ -13,7 +13,7 @@ class News(SqlAlchemyBase, SerializerMixin):
                            primary_key=True, autoincrement=True)
     title = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    price = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
+    price = sqlalchemy.Column(sqlalchemy.String, nullable=False, default='бесплатно')
     is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
     bargaining = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     photo = sqlalchemy.Column(sqlalchemy.BLOB, nullable=True)
