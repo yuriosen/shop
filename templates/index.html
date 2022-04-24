@@ -28,7 +28,7 @@
         Торг возможен
     </div>
 {% endif %}
-    <img src=item.photo alt='картинка'>
+    <img src={{item.photo}} alt='картинка'>
     {% if current_user.is_authenticated and current_user == item.user %}
     <div>
         <a href="/news/{{ item.id }}" class="btn btn-warning">

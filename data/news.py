@@ -15,7 +15,7 @@ class News(SqlAlchemyBase, SerializerMixin):
     price = sqlalchemy.Column(sqlalchemy.String, nullable=False, default='бесплатно')
     is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
     bargaining = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
-    photo = sqlalchemy.Column(sqlalchemy.BLOB, nullable=True)
+    photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relation('User')
