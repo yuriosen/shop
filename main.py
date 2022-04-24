@@ -2,10 +2,10 @@ from flask import Flask, render_template, redirect, request, abort, make_respons
 from data import db_session
 from data.users import User
 from forms.user import RegisterForm, LoginForm
-from data.news import News
+from data.product import Product
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from forms.news import NewsForm
-from data import news_api
+from forms.product import ProductForm
+from data import product_api
 
 
 app = Flask(__name__)
@@ -19,54 +19,54 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-@app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
+@app.route('/product_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
-def news_delete(id):
+def product_delete(id):
     db_sess = db_session.create_session()
-    news = db_sess.query(News).filter(News.id == id,
-                                      News.user == current_user
+    product = db_sess.query(Product).filter(Product.id == id,
+                                      Product.user == current_user
                                       ).first()
-    if news:
-        db_sess.delete(news)
+    if product:
+        db_sess.delete(product)
         db_sess.commit()
     else:
         abort(404)
     return redirect('/')
 
 
-@app.route('/news/<int:id>', methods=['GET', 'POST'])
+@app.route('/product/<int:id>', methods=['GET', 'POST'])
 @login_required
-def edit_news(id):
+def edit_product(id):
     form = NewsForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
-        news = db_sess.query(News).filter(News.id == id,
-                                          News.user == current_user
+        product = db_sess.query(Product).filter(Product.id == id,
+                                          Product.user == current_user
                                           ).first()
-        if news:
-            form.title.data = news.title
-            form.content.data = news.content
-            form.price.data = news.price
-            form.bargaining.data = news.bargaining
-            form.photo.data = news.photo
+        if product:
+            form.title.data = product.title
+            form.content.data = product.content
+            form.price.data = product.price
+            form.bargaining.data = product.bargaining
+            form.photo.data = product.photo
         else:
             abort(404)
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        news = db_sess.query(News).filter(News.id == id,
-                                          News.user == current_user
+        product = db_sess.query(Product).filter(Product.id == id,
+                                          Product.user == current_user
                                           ).first()
-        if news:
-            news.title = form.title.data
-            news.content = form.content.data
-            news.price = form.price.data
-            news.bargaining = form.bargaining.data
-            news.photo = form.photo.data
+        if product:
+            product.title = form.title.data
+            product.content = form.content.data
+            product.price = form.price.data
+            product.bargaining = form.bargaining.data
+            product.photo = form.photo.data
             db_sess.commit()
             return redirect('/')
         else:
             abort(404)
-    return render_template('news.html',
+    return render_template('product.html',
                            title='Редактирование новости',
                            form=form
                            )
@@ -100,23 +100,23 @@ def load_user(user_id):
     return db_sess.query(User).get(user_id)
 
 
-@app.route('/news', methods=['GET', 'POST'])
+@app.route('/product', methods=['GET', 'POST'])
 @login_required
-def add_news():
+def add_product():
     form = NewsForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        news = News()
-        news.title = form.title.data
-        news.content = form.content.data
-        news.price = form.price.data
-        news.bargaining = form.bargaining.data
-        news.photo = form.photo.data
-        current_user.news.append(news)
+        product = Product()
+        product.title = form.title.data
+        product.content = form.content.data
+        product.price = form.price.data
+        product.bargaining = form.bargaining.data
+        product.photo = form.photo.data
+        current_user.product.append(product)
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
-    return render_template('news.html', title='Добавление товара',
+    return render_template('product.html', title='Добавление товара',
                            form=form)
 
 
@@ -124,11 +124,11 @@ def add_news():
 def index():
     db_sess = db_session.create_session()
     if current_user.is_authenticated:
-        news = db_sess.query(News).filter(
-            (News.user == current_user) | (News.is_private != True))
+        product = db_sess.query(Product).filter(
+            (Product.user == current_user) | (Product.is_private != True))
     else:
-        news = db_sess.query(News).filter(News.is_private != True)
-    return render_template("index.html", news=news)
+        product = db_sess.query(Product).filter(Product.is_private != True)
+    return render_template("index.html", product=product)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -176,26 +176,26 @@ def create_users():
     db_sess.commit()
 
 
-def create_news_():
+def create_product_():
     db_sess = db_session.create_session()
-    news = News(title="Сумка", content="Красивая красная сумка", price="16",
+    product = Product(title="Сумка", content="Красивая красная сумка", price="16",
                 user_id=1, is_private=False, bargaining=False, photo='/static/img/bag.jpg')
-    db_sess.add(news)
+    db_sess.add(product)
 
     user = db_sess.query(User).filter(User.id == 1).first()
-    news = News(title="Стол", content="деревянный, большой", price="100",
+    product = Product(title="Стол", content="деревянный, большой", price="100",
                 user=user, is_private=False, bargaining=True, photo='/static/img/table.jpg')
-    db_sess.add(news)
+    db_sess.add(product)
 
-    user.news.append(news)
+    user.product.append(product)
     db_sess.commit()
 
 
 def main():
     db_session.global_init('data/shop.db')
     create_users()
-    create_news_()
-    app.register_blueprint(news_api.blueprint)
+    create_product_()
+    app.register_blueprint(product_api.blueprint)
     app.run()
 
 

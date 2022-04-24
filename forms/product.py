@@ -3,7 +3,7 @@ from wtforms import StringField, TextAreaField, IntegerField, FileField, Boolean
 from wtforms.validators import DataRequired
 
 
-class NewsForm(FlaskForm):
+class ProductForm(FlaskForm):
     title = StringField('Наименование товара', validators=[DataRequired()])
     content = TextAreaField("Описание")
     price = StringField("Цена товара (в долларах)")

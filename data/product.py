@@ -5,8 +5,8 @@ from .db_session import SqlAlchemyBase
 from sqlalchemy_serializer import SerializerMixin
 
 
-class News(SqlAlchemyBase, SerializerMixin):
-    __tablename__ = 'news'
+class Product(SqlAlchemyBase, SerializerMixin):
+    __tablename__ = 'product'
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
@@ -22,4 +22,4 @@ class News(SqlAlchemyBase, SerializerMixin):
 
     categories = orm.relation("Category",
                               secondary="association",
-                              backref="news")
+                              backref="product")
