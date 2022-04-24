@@ -24,8 +24,8 @@ def not_found(error):
 def product_delete(id):
     db_sess = db_session.create_session()
     product = db_sess.query(Product).filter(Product.id == id,
-                                      Product.user == current_user
-                                      ).first()
+                                            Product.user == current_user
+                                            ).first()
     if product:
         db_sess.delete(product)
         db_sess.commit()
@@ -41,8 +41,8 @@ def edit_product(id):
     if request.method == "GET":
         db_sess = db_session.create_session()
         product = db_sess.query(Product).filter(Product.id == id,
-                                          Product.user == current_user
-                                          ).first()
+                                                Product.user == current_user
+                                                ).first()
         if product:
             form.title.data = product.title
             form.content.data = product.content
@@ -54,8 +54,8 @@ def edit_product(id):
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         product = db_sess.query(Product).filter(Product.id == id,
-                                          Product.user == current_user
-                                          ).first()
+                                                Product.user == current_user
+                                                ).first()
         if product:
             product.title = form.title.data
             product.content = form.content.data
@@ -103,7 +103,7 @@ def load_user(user_id):
 @app.route('/product', methods=['GET', 'POST'])
 @login_required
 def add_product():
-    form = NewsForm()
+    form = ProductForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         product = Product()
@@ -165,7 +165,6 @@ def create_user(name, email, number):
 
 
 def create_users():
-    # Создание пользователей
     user1 = create_user("Пользователь 1", "email@email.ru", "11111")
     user2 = create_user("Пользователь 2", "email2@email.ru", "22222")
     user3 = create_user("Пользователь 3", "email_3@email.ru", "33333")
@@ -179,12 +178,12 @@ def create_users():
 def create_product_():
     db_sess = db_session.create_session()
     product = Product(title="Сумка", content="Красивая красная сумка", price="16",
-                user_id=1, is_private=False, bargaining=False, photo='/static/img/bag.jpg')
+                      user_id=1, is_private=False, bargaining=False, photo='/static/img/bag.jpg')
     db_sess.add(product)
 
     user = db_sess.query(User).filter(User.id == 1).first()
     product = Product(title="Стол", content="деревянный, большой", price="100",
-                user=user, is_private=False, bargaining=True, photo='/static/img/table.jpg')
+                      user=user, is_private=False, bargaining=True, photo='/static/img/table.jpg')
     db_sess.add(product)
 
     user.product.append(product)
