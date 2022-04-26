@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, abort, make_response, jsonify
+from flask import Flask, render_template, redirect, request, abort, make_response, jsonify, url_for
 from data import db_session
 from data.users import User
 from forms.user import RegisterForm, LoginForm
@@ -37,7 +37,7 @@ def product_delete(id):
 @app.route('/product/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_product(id):
-    form = NewsForm()
+    form = ProductForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
         product = db_sess.query(Product).filter(Product.id == id,
@@ -61,13 +61,13 @@ def edit_product(id):
             product.content = form.content.data
             product.price = form.price.data
             product.bargaining = form.bargaining.data
-            product.photo = form.photo.data
+            product.photo = url_for('static', filename=f"img/{request.form['file']}")
             db_sess.commit()
             return redirect('/')
         else:
             abort(404)
     return render_template('product.html',
-                           title='Редактирование новости',
+                           title='Редактирование товара',
                            form=form
                            )
 
@@ -111,7 +111,7 @@ def add_product():
         product.content = form.content.data
         product.price = form.price.data
         product.bargaining = form.bargaining.data
-        product.photo = form.photo.data
+        product.photo = url_for('static', filename=f"img/{request.form['file']}")
         current_user.product.append(product)
         db_sess.merge(current_user)
         db_sess.commit()
