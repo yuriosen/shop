@@ -5,6 +5,7 @@ from forms.user import RegisterForm, LoginForm
 from data.product import Product
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from forms.product import ProductForm
+from data.db_session import global_init, create_session
 from data import product_api
 
 
@@ -191,9 +192,17 @@ def create_product_():
 
 
 def main():
-    db_session.global_init('data/shop.db')
-    create_users()
-    create_product_()
+    global_init('data/shop.db')
+    f = open("zapusk.txt", mode="r")
+    data = f.read()
+    if data == '1':
+        print('aaa')
+        f.close()
+        f = open("zapusk.txt", mode="w")
+        create_users()
+        create_product_()
+        f.write('2')
+    f.close()
     app.register_blueprint(product_api.blueprint)
     app.run()
 
