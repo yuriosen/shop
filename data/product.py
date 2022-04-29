@@ -13,7 +13,7 @@ class Product(SqlAlchemyBase, SerializerMixin):
     title = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     price = sqlalchemy.Column(sqlalchemy.String, default='бесплатно')
-    is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=True)
+    is_private = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     bargaining = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
     photo = sqlalchemy.Column(sqlalchemy.String)
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
