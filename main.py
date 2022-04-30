@@ -196,7 +196,6 @@ def main():
     f = open("zapusk.txt", mode="r")
     data = f.read()
     if data == '1':
-        print('aaa')
         f.close()
         f = open("zapusk.txt", mode="w")
         create_users()
