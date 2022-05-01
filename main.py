@@ -60,7 +60,11 @@ def edit_product(id):
         if product:
             product.title = form.title.data
             product.content = form.content.data
-            product.price = form.price.data
+            if form.price.data.isdigit() or form.price.data == '':
+                product.price = form.price.data
+            else:
+                return render_template('product.html', title='Добавление товара',
+                                       form=form, message='Цена должна быть числом')
             product.bargaining = form.bargaining.data
             product.photo = url_for('static', filename=f"img/{request.form['file']}")
             db_sess.commit()
@@ -110,7 +114,11 @@ def add_product():
         product = Product()
         product.title = form.title.data
         product.content = form.content.data
-        product.price = form.price.data
+        if form.price.data.isdigit() or form.price.data == '':
+            product.price = form.price.data
+        else:
+            return render_template('product.html', title='Добавление товара',
+                                   form=form, message='Цена должна быть числом')
         product.bargaining = form.bargaining.data
         product.photo = url_for('static', filename=f"img/{request.form['file']}")
         current_user.product.append(product)
