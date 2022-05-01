@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired
 class ProductForm(FlaskForm):
     title = StringField('Наименование товара', validators=[DataRequired()])
     content = TextAreaField("Описание")
-    price = IntegerField("Цена товара (в долларах)")
+    price = StringField("Цена товара (в долларах)")
     photo = FileField("Приложите фото")
     bargaining = BooleanField("Торг возможен?")
     submit = SubmitField('Опубликовать')
