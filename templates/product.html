@@ -32,8 +32,9 @@
         {% endfor %}
     </p>
     <p class="form-group">
-        <label for="photo">Приложите фотографию (изображение должно храниться в каталоге static/image)</label>
+        <label for="photo">Приложите фотографию</label>
         <input type="file" id="photo" name="file" multiple accept=".png, .jpg, .jpeg">
+        <p>(изображение должно храниться в каталоге static/image)</p>
     </p>
     <p>{{ form.bargaining() }} {{ form.bargaining.label }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
