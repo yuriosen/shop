@@ -153,6 +153,10 @@ def reqister():
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
+        if db_sess.query(User).filter(User.number == form.number.data).first():
+            return render_template('register.html', title='Регистрация',
+                                   form=form,
+                                   message="Такой пользователь уже есть")
         user = User(
             name=form.name.data,
             email=form.email.data,
